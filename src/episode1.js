@@ -213,46 +213,46 @@ function getEpisode1Timeline(EXPERIMENT_PARAMS) {
 
   // Then for practice
   const page5PracticeTemplate = [
-    // { 
-    //   type:'practice',
-    //   IDs: [2,3],
-    //   template: ["arg1","X","Y","arg2"]
-    // },
-    // { 
-    //   type:'practice',
-    //   IDs: [3,4],
-    //   template: ["arg1","Y","arg2","X"]
-    // },
-    // { 
-    //   type:'practice',
-    //   IDs: [2,3],
-    //   template: ["arg1","X","Z","arg2"]
-    // },
-    // { 
-    //   type:'practice',
-    //   IDs: [3,4],
-    //   template: ["arg1","Z","arg2","X"]
-    // },
-    // { 
-    //   type:'practice',
-    //   IDs: [1,3,4],
-    //   template: ["arg1","Y","arg2","Z","arg3"]
-    // },
-    // { 
-    //   type:'practice',
-    //   IDs: [2,3,4],
-    //   template: ["arg1","Z","arg2","Y","arg3"]
-    // },
-    // { 
-    //   type:'practice',
-    //   IDs: [1,2,4],
-    //   template: ["arg1","Y","arg2","Z","arg3","X"]
-    // },
-    // { 
-    //   type:'practice',
-    //   IDs: [1,3,4],
-    //   template: ["arg1","X","Z","arg2","Y","arg3"]
-    // },
+    { 
+      type:'practice',
+      IDs: [2,3],
+      template: ["arg1","X","Y","arg2"]
+    },
+    { 
+      type:'practice',
+      IDs: [3,4],
+      template: ["arg1","Y","arg2","X"]
+    },
+    { 
+      type:'practice',
+      IDs: [2,3],
+      template: ["arg1","X","Z","arg2"]
+    },
+    { 
+      type:'practice',
+      IDs: [3,4],
+      template: ["arg1","Z","arg2","X"]
+    },
+    { 
+      type:'practice',
+      IDs: [1,3,4],
+      template: ["arg1","Y","arg2","Z","arg3"]
+    },
+    { 
+      type:'practice',
+      IDs: [2,3,4],
+      template: ["arg1","Z","arg2","Y","arg3"]
+    },
+    { 
+      type:'practice',
+      IDs: [1,2,4],
+      template: ["arg1","Y","arg2","Z","arg3","X"]
+    },
+    { 
+      type:'practice',
+      IDs: [1,3,4],
+      template: ["arg1","X","Z","arg2","Y","arg3"]
+    },
     { 
       type:'practice',
       IDs: [2,3,4],

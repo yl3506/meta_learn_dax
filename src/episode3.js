@@ -162,21 +162,21 @@ function getEpisode3Timeline(EXPERIMENT_PARAMS) {
   // Test combos
   const page5TestTemplate = [
     // Practice (16,17): arg1 X Y arg2
-    // { type:'test', IDs:[16,17], template:["arg1","X","Y","arg2"] },
-    // // Practice (17,18): arg1 Y arg2 X
-    // { type:'test', IDs:[17,18], template:["arg1","Y","arg2","X"] },
-    // // Practice (16,17): arg1 X Z arg2
-    // { type:'test', IDs:[16,17], template:["arg1","X","Z","arg2"] },
-    // // Practice (17,18): arg1 Z arg2 X
-    // { type:'test', IDs:[17,18], template:["arg1","Z","arg2","X"] },
-    // // Practice (15,17,18): arg1 Y arg2 Z arg3
-    // { type:'test', IDs:[15,17,18], template:["arg1","Y","arg2","Z","arg3"] },
-    // // Practice (16,17,18): arg1 Z arg2 Y arg3
-    // { type:'test', IDs:[16,17,18], template:["arg1","Z","arg2","Y","arg3"] },
-    // // Practice (15,16,18): arg1 Y arg2 Z arg3 X
-    // { type:'test', IDs:[15,16,18], template:["arg1","Y","arg2","Z","arg3","X"] },
-    // // Practice (15,17,18): arg1 X Z arg2 Y arg3
-    // { type:'test', IDs:[15,17,18], template:["arg1","X","Z","arg2","Y","arg3"] },
+    { type:'test', IDs:[16,17], template:["arg1","X","Y","arg2"] },
+    // Practice (17,18): arg1 Y arg2 X
+    { type:'test', IDs:[17,18], template:["arg1","Y","arg2","X"] },
+    // Practice (16,17): arg1 X Z arg2
+    { type:'test', IDs:[16,17], template:["arg1","X","Z","arg2"] },
+    // Practice (17,18): arg1 Z arg2 X
+    { type:'test', IDs:[17,18], template:["arg1","Z","arg2","X"] },
+    // Practice (15,17,18): arg1 Y arg2 Z arg3
+    { type:'test', IDs:[15,17,18], template:["arg1","Y","arg2","Z","arg3"] },
+    // Practice (16,17,18): arg1 Z arg2 Y arg3
+    { type:'test', IDs:[16,17,18], template:["arg1","Z","arg2","Y","arg3"] },
+    // Practice (15,16,18): arg1 Y arg2 Z arg3 X
+    { type:'test', IDs:[15,16,18], template:["arg1","Y","arg2","Z","arg3","X"] },
+    // Practice (15,17,18): arg1 X Z arg2 Y arg3
+    { type:'test', IDs:[15,17,18], template:["arg1","X","Z","arg2","Y","arg3"] },
     // Practice (16,17,18): arg1 Z arg2 Y X arg3
     { type:'test', IDs:[16,17,18], template:["arg1","Z","arg2","Y","arg3","X"] },
   ];
