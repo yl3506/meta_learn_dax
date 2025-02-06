@@ -8,7 +8,7 @@ const jsPsych = initJsPsych({
   }
 });
 
-const available_words = ['dax', 'wif', 'lug', 'zem', 'fep', 'blicket', 'niz', 'kiki', 'rav', 'lunt', 'mib', 'vex', 'flim', 'nog', 'quip', 'blug', 'taz', 'snib', 'sorn', 'yim', 'blap', 'frip', 'glom', 'twib', 'zaf', 'mox', 'pif', 'clum', 'drab', 'torp', 'griv', 'klet', 'spiv', 'yub', 'zilp', 'worb', 'grack', 'flanx', 'truv', 'kelp'];
+const available_words = ['dax', 'wif', 'lug', 'zem', 'fep', 'blicket', 'niz', 'kiki', 'rav', 'lunt', 'mib', 'vex', 'flim', 'nog', 'quip', 'blug', 'taz', 'snib', 'sorn', 'yim', 'blap', 'frip', 'glom', 'twib', 'zaf', 'mox', 'pif', 'clum', 'torp', 'griv', 'klet', 'spiv', 'yub', 'zilp', 'worb', 'grack', 'flanx', 'truv'];
 const available_emojis = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z', 'aa'];
 const available_functions = ['func1','func2','func3'];
 
@@ -79,7 +79,7 @@ function createRandomMappings(){
 
 EXPERIMENT_PARAMS.totalSections = 20;
 EXPERIMENT_PARAMS.currentSectionIndex = 0;
-EXPERIMENT_PARAMS.maxPracticeAttempts = 1;
+EXPERIMENT_PARAMS.maxPracticeAttempts = 3;
 EXPERIMENT_PARAMS.practiceAttempts = 0;
 
 // Build the experiment timeline

@@ -1,3 +1,14 @@
+TODO:
+
+randomize demo examples (especially combo page)
+add note during the comb demo/practice that order is important
+hide button note after click confirm in test
+base time 40 min (45-60min), first 5-10 pilot, full data 20-40 people, 
+16 base, 0.5 bonus each on pilot, 
+
+DONE last practice of episode 1 has wrong answer
+
+
 Upload
 scp -r /Users/yichen/Downloads/meta_learn_dax/ cocodev@207.244.121.250:/home/cocodev/apps/experiments/yichenli/
 
@@ -83,7 +94,7 @@ Episode 1 (Grammar 1) - Training
 		Practice (2, 3, 4): arg1 Z arg2 Y arg3 -> arg1 Z (arg2 Y arg3) -> arg2 arg3 arg2 arg1
 		Practice (1, 2, 4): arg1 Y arg2 Z arg3 X -> (arg1 Y arg2) Z (arg3 X) -> arg3 arg3 arg3 arg1 arg2 arg1
 		Practice (1, 3, 4): arg1 X Z arg2 Y arg3 -> (arg1 X) Z (arg2 Y arg3) -> arg2 arg3 arg2 arg1 arg1 arg1
-		Practice (2, 3, 4): arg1 Z arg2 Y X arg3 -> arg1 Z (arg2 Y (X arg3)) -> arg2 arg3 arg3 arg3 arg2 arg1
+		Practice (2, 3, 4): arg1 Z arg2 Y arg3 X -> arg1 Z (arg2 Y (arg3 X)) -> arg2 arg3 arg3 arg3 arg2 arg1
 		(randomize argument-token mapping in the parenthesis)
 
 
@@ -141,7 +152,7 @@ Episode 2 (Grammar 3) - Familiarization
 		Practice (9, 10, 11): arg1 Z arg2 Y arg3 -> arg1 Z (arg2 Y arg3) -> arg2 arg3 arg2 arg1
 		Practice (8, 9, 11): arg1 Y arg2 Z arg3 X -> (arg1 Y arg2) Z (arg3 X) -> arg3 arg3 arg3 arg1 arg2 arg1
 		Practice (8, 10, 11): arg1 X Z arg2 Y arg3 -> (arg1 X) Z (arg2 Y arg3) -> arg2 arg3 arg2 arg1 arg1 arg1
-		Practice (9, 10, 11): arg1 Z arg2 Y X arg3 -> arg1 Z (arg2 Y (X arg3)) -> arg2 arg3 arg3 arg3 arg2 arg1
+		Practice (9, 10, 11): arg1 Z arg2 Y arg3 X -> arg1 Z (arg2 Y (arg3 X)) -> arg2 arg3 arg3 arg3 arg2 arg1
 
 
 Episode 3 (Grammar 3) - Testing
@@ -198,5 +209,5 @@ Episode 3 (Grammar 3) - Testing
 		Test (16, 17, 18): arg1 Z arg2 Y arg3 -> arg1 Z (arg2 Y arg3) -> arg2 arg3 arg2 arg1
 		Test (15, 16, 18): arg1 Y arg2 Z arg3 X -> (arg1 Y arg2) Z (arg3 X) -> arg3 arg3 arg3 arg1 arg2 arg1
 		Test (15, 17, 18): arg1 X Z arg2 Y arg3 -> (arg1 X) Z (arg2 Y arg3) -> arg2 arg3 arg2 arg1 arg1 arg1
-		Test (16, 17, 18): arg1 Z arg2 Y X arg3 -> arg1 Z (arg2 Y (X arg3)) -> arg2 arg3 arg3 arg3 arg2 arg1
+		Test (16, 17, 18): arg1 Z arg2 Y arg3 X -> arg1 Z (arg2 Y (arg3 X)) -> arg2 arg3 arg3 arg3 arg2 arg1
 

@@ -104,6 +104,10 @@ function introductionProcedure() {
       const lastTrialData = data.values()[0];
       // If user arranges it correctly => proceed. Otherwise => repeat
       if (lastTrialData.correct) {
+            // Increment progress bar
+            EXPERIMENT_PARAMS.currentSectionIndex ++;
+            const fraction = EXPERIMENT_PARAMS.currentSectionIndex / EXPERIMENT_PARAMS.totalSections;
+            jsPsych.progressBar.progress = fraction;
           return false; // end of loop
       } else {
           return true; // repeat

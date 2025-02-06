@@ -177,58 +177,58 @@ function getEpisode2Timeline(EXPERIMENT_PARAMS){
   // Page 5 Practice combos
   const page5PracticeTemplate = [
     // Practice (9, 10): arg1 X Y arg2
-    {
-      type:'practice',
-      IDs:[9,10],
-      template:["arg1","X","Y","arg2"]
-    },
-    // Practice (10, 11): arg1 Y arg2 X
-    {
-      type:'practice',
-      IDs:[10,11],
-      template:["arg1","Y","arg2","X"]
-    },
-    // Practice (9, 10): arg1 X Z arg2
-    {
-      type:'practice',
-      IDs:[9,10],
-      template:["arg1","X","Z","arg2"]
-    },
-    // Practice (10, 11): arg1 Z arg2 X
-    {
-      type:'practice',
-      IDs:[10,11],
-      template:["arg1","Z","arg2","X"]
-    },
-    // Practice (8, 10, 11): arg1 Y arg2 Z arg3
-    {
-      type:'practice',
-      IDs:[8,10,11],
-      template:["arg1","Y","arg2","Z","arg3"]
-    },
-    // Practice (9, 10, 11): arg1 Z arg2 Y arg3
+    // {
+    //   type:'practice',
+    //   IDs:[9,10],
+    //   template:["arg1","X","Y","arg2"]
+    // },
+    // // Practice (10, 11): arg1 Y arg2 X
+    // {
+    //   type:'practice',
+    //   IDs:[10,11],
+    //   template:["arg1","Y","arg2","X"]
+    // },
+    // // Practice (9, 10): arg1 X Z arg2
+    // {
+    //   type:'practice',
+    //   IDs:[9,10],
+    //   template:["arg1","X","Z","arg2"]
+    // },
+    // // Practice (10, 11): arg1 Z arg2 X
+    // {
+    //   type:'practice',
+    //   IDs:[10,11],
+    //   template:["arg1","Z","arg2","X"]
+    // },
+    // // Practice (8, 10, 11): arg1 Y arg2 Z arg3
+    // {
+    //   type:'practice',
+    //   IDs:[8,10,11],
+    //   template:["arg1","Y","arg2","Z","arg3"]
+    // },
+    // // Practice (9, 10, 11): arg1 Z arg2 Y arg3
+    // {
+    //   type:'practice',
+    //   IDs:[9,10,11],
+    //   template:["arg1","Z","arg2","Y","arg3"]
+    // },
+    // // Practice (8, 9, 11): arg1 Y arg2 Z arg3 X
+    // {
+    //   type:'practice',
+    //   IDs:[8,9,11],
+    //   template:["arg1","Y","arg2","Z","arg3","X"]
+    // },
+    // // Practice (8, 10, 11): arg1 X Z arg2 Y arg3
+    // {
+    //   type:'practice',
+    //   IDs:[8,10,11],
+    //   template:["arg1","X","Z","arg2","Y","arg3"]
+    // },
+    // Practice (9, 10, 11): arg1 Z arg2 Y arg3 X
     {
       type:'practice',
       IDs:[9,10,11],
-      template:["arg1","Z","arg2","Y","arg3"]
-    },
-    // Practice (8, 9, 11): arg1 Y arg2 Z arg3 X
-    {
-      type:'practice',
-      IDs:[8,9,11],
-      template:["arg1","Y","arg2","Z","arg3","X"]
-    },
-    // Practice (8, 10, 11): arg1 X Z arg2 Y arg3
-    {
-      type:'practice',
-      IDs:[8,10,11],
-      template:["arg1","X","Z","arg2","Y","arg3"]
-    },
-    // Practice (9, 10, 11): arg1 Z arg2 Y X arg3
-    {
-      type:'practice',
-      IDs:[9,10,11],
-      template:["arg1","Z","arg2","Y","X","arg3"]
+      template:["arg1","Z","arg2","Y","arg3","X"]
     },
   ];
   // We'll build final arrays
