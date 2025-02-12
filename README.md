@@ -1,19 +1,25 @@
-TODO:
+TODO
+double check transformer/baseline performance
 
-randomize demo examples (especially combo page)
-add note during the comb demo/practice that order is important
-hide button note after click confirm in test
+disable empty submit 
+redirection link
+
 base time 40 min (45-60min), first 5-10 pilot, full data 20-40 people, 
 16 base, 0.5 bonus each on pilot, 
 
-DONE last practice of episode 1 has wrong answer
+DONE 
+last practice of comb page answer incorrect
+randomize demo examples (especially combo page)
+hide button note after click confirm in test
+add note during the comb demo/practice that order is important
+resolve data storage
 
 
 Upload
 scp -r /Users/yichen/Downloads/meta_learn_dax/ cocodev@207.244.121.250:/home/cocodev/apps/experiments/yichenli/
 
 Download
-scp -r cocodev@207.244.121.250:/home/cocodev/apps/experiments/yichenli/meta_learn_dat/data/ /Users/yichen/Downloads/meta_learn_dax/
+scp -r cocodev@207.244.121.250:/home/cocodev/apps/experiments/yichenli/meta_learn_dax/data /Users/yichen/Downloads/meta_learn_dax/
 
 URL
 https://cocodev.opalstacked.com/experiments/yichenli/meta_learn_dax/index.html

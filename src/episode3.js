@@ -31,7 +31,8 @@ function getEpisode3Timeline(EXPERIMENT_PARAMS) {
       <h2 style="color:red;">Beginning of Episode 3</h2>
       <p>All word-emoji associations have changed again.</p>
       <p>This time, there is <b>no practice or feedback</b>. It's a final test.</p> 
-      <p>Your <b>bonus</b> payment will be associated with your performance in this episode.</p> 
+      <p>Your <b>bonus</b> payment will depend on your performance in this episode.</p> 
+      <p>You will earn <b>$0.5</b> bonus for each correct response (up to $7.5 in total).</p>
       <p>Good luck!</p>
       <br>
       <p>Click the button when you are ready to begin the test.</p>
@@ -183,7 +184,7 @@ function getEpisode3Timeline(EXPERIMENT_PARAMS) {
   // Convert each template to a final inputArray using randomization
   let page5Demos = [];
   for(const ex of page5DemosTemplate){
-    const finalArray = randomizeCombinationExample(ex.IDs, ex.template, EXPERIMENT_PARAMS, 3);
+    const finalArray = randomizeCombArguments(ex.IDs, ex.template, EXPERIMENT_PARAMS, 3);
     page5Demos.push({
       inputArray: finalArray,
       type: 'demo'
@@ -192,7 +193,7 @@ function getEpisode3Timeline(EXPERIMENT_PARAMS) {
 
   let page5Tests = [];
   for(const ex of page5TestTemplate){
-    const finalArray = randomizeCombinationExample(ex.IDs, ex.template, EXPERIMENT_PARAMS, 3);
+    const finalArray = randomizeCombArguments(ex.IDs, ex.template, EXPERIMENT_PARAMS, 3);
     page5Tests.push({
       inputArray: finalArray,
       type: 'test'
@@ -262,19 +263,34 @@ function createPageTimelineTest(
   });
 
   // Demo
+  demoExamples = jsPsych.randomization.shuffle([...demoExamples]); // shuffle
   demoExamples.forEach(ex=>{
     pageTimeline.push({
       type: jsPsychHtmlButtonResponse,
       stimulus: function(){
         const priorHTML=renderReferenceExamples(allExamples, pageNumber);
         const { inputWords, outputEmojis }= computeInputOutput(ex.inputArray, EXPERIMENT_PARAMS);
+        // If we're on page 5, show the extra reminder line:
+        let reminderLine = '';
+        if (pageNumber === 5) {
+          reminderLine = `
+            <p>
+              There is only one correct order of applying multiple operations.
+              Try to infer this order from examples.
+            </p>
+            <hr>
+          `;
+        }
         return `
           <div>
+            ${reminderLine}
             <p><b>Reference of Previous Examples</b></p>
             ${priorHTML}
             <hr>
             <p><b>Demo</b></p>
-            <p>${inputWords.join(' ')} → ${renderEmojisInline(outputEmojis)}</p>
+            <p style="margin-bottom:10px;">
+              ${inputWords.join(' ')} → ${renderEmojisInline(outputEmojis)}
+            </p>
           </div>
         `;
       },
@@ -300,21 +316,34 @@ function createPageTimelineTest(
   });
 
   // Test
+  testExamples = jsPsych.randomization.shuffle([...testExamples]); // shuffle
   testExamples.forEach(ex=>{
     pageTimeline.push({
       type: jsPsychHtmlKeyboardResponse,
       stimulus: function(){
         const priorHTML=renderReferenceExamples(allExamples, pageNumber);
         const { inputWords }= computeInputOutput(ex.inputArray, EXPERIMENT_PARAMS);
+        // The same reminder line if we're on page 5:
+            let reminderLine = '';
+            if (pageNumber === 5) {
+              reminderLine = `
+                <p>
+                  There is only one correct order of applying multiple operations.
+                  Try to infer this order from examples.
+                </p>
+                <hr>
+              `;
+            }
         return `
           <div id="test-container">
+            ${reminderLine}
             <p><b>Reference of Previous Examples</b></p>
             ${priorHTML}
             <hr>
             <p style="color:red;"><b>Test</b></p>
             <p>${inputWords.join(' ')} → ?</p>
             ${createDragAndDropInterface()}
-            <p style="color:blue;">
+            <p id="no-feedback-note" style="color:blue;">
               No feedback. Click "Confirm" to record your answer.
             </p>
           </div>
@@ -324,6 +353,8 @@ function createPageTimelineTest(
       on_load: function(){
         const { outputEmojis }= computeInputOutput(ex.inputArray, EXPERIMENT_PARAMS);
         setupDragAndDropTest(outputEmojis); // no feedback
+        // Store the time (in ms) when this trial started
+        window.trialStartTime = performance.now();
       },
       on_finish:function(data){
         // Store data from allExamples
@@ -341,7 +372,6 @@ function createPageTimelineTest(
           EXPERIMENT_PARAMS.testCorrectCount++;
         }
         // Store data
-        data.rt = data.rt; // time is automatically captured by jspsych
         data.episode= episode;
         data.page = pageNumber;
         data.trial_type = 'test';

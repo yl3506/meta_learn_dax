@@ -21,17 +21,17 @@ function consentProcedure() {
 
             <p></p>
             <h3>Duration of study:</h3>
-            <p>Participation will take approximately 30 minutes to complete.</p>
+            <p>Participation will take approximately 50 minutes to complete.</p>
 
             <p></p>
             <h3>Compensation:</h3>
-            <p>Base payment: You will receive $8 base payment (around $16/hour) by completing this study.</p>
+            <p>Base payment: You will receive $16 base payment by completing this study.</p>
             <p>Bonus payment: For every example you answer correctly in <b style="color: red">Episode 3</b>, you will receive $0.5 <b style="color:red">bonus payment.</b></p>
 
             <p></p>
             <h3>Risks:</h3>
             <p>If you choose to participate, 
-            the effects should be comparable to those you would experience from viewing a computer monitor for 30 minutes and using a mouse or keyboard.</p>
+            the effects should be comparable to those you would experience from viewing a computer monitor and using a mouse or keyboard.</p>
 
             <p></p>
             <h3>Confidentiality:</h3>

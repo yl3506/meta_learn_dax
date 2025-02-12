@@ -264,7 +264,7 @@ function getEpisode1Timeline(EXPERIMENT_PARAMS) {
   let page5Demos = [];
   for(const ex of page5DemosTemplate){
     // randomize the assignment from arg1/arg2(/arg3) => ex.IDs
-    const finalArray = randomizeCombinationExample(ex.IDs, ex.template, EXPERIMENT_PARAMS, 1);
+    const finalArray = randomizeCombArguments(ex.IDs, ex.template, EXPERIMENT_PARAMS, 1);
     page5Demos.push({
       inputArray: finalArray,
       type:ex.type,
@@ -273,7 +273,7 @@ function getEpisode1Timeline(EXPERIMENT_PARAMS) {
 
   let page5Practice = [];
   for(const ex of page5PracticeTemplate){
-    const finalArray = randomizeCombinationExample(ex.IDs, ex.template, EXPERIMENT_PARAMS, 1);
+    const finalArray = randomizeCombArguments(ex.IDs, ex.template, EXPERIMENT_PARAMS, 1);
     page5Practice.push({
       inputArray: finalArray,
       type:ex.type,
@@ -360,7 +360,7 @@ function createPageTimeline(
     `;
   };
 
-  // Intro
+  // Intro page
   pageTimeline.push({
     type: jsPsychHtmlButtonResponse,
     stimulus: intromessage,
@@ -368,6 +368,7 @@ function createPageTimeline(
   });
 
   // ---------- Demos ----------
+  demoExamples = jsPsych.randomization.shuffle([...demoExamples]); // shuffle order
   demoExamples.forEach(ex => {
     pageTimeline.push({
       type: jsPsychHtmlButtonResponse,
@@ -375,8 +376,20 @@ function createPageTimeline(
         // Build reference
         const priorHTML = renderReferenceExamples(allExamples, pageNumber);
         const { inputWords, outputEmojis } = computeInputOutput(ex.inputArray, EXPERIMENT_PARAMS);
+        // If we're on page 5, show the extra reminder line:
+        let reminderLine = '';
+        if (pageNumber === 5) {
+          reminderLine = `
+            <p>
+              There is only one correct order of applying multiple operations.
+              Try to infer this order from examples.
+            </p>
+            <hr>
+          `;
+        }
         return `
           <div>
+            ${reminderLine}
             <p><b>Reference of Previous Examples</b></p>
             ${priorHTML}
             <hr>
@@ -410,6 +423,7 @@ function createPageTimeline(
   });
 
   // ---------- Practice ----------
+  practiceExamples = jsPsych.randomization.shuffle([...practiceExamples]);
   practiceExamples.forEach(ex => {
     pageTimeline.push({
       timeline: [
@@ -417,9 +431,21 @@ function createPageTimeline(
           type: jsPsychHtmlKeyboardResponse,
           stimulus: function(){
             const priorHTML = renderReferenceExamples(allExamples, pageNumber);
-            const { inputWords } = computeInputOutput(ex.inputArray, EXPERIMENT_PARAMS);
+            const { inputWords, outputEmojis } = computeInputOutput(ex.inputArray, EXPERIMENT_PARAMS);
+            // The same reminder line if we're on page 5:
+            let reminderLine = '';
+            if (pageNumber === 5) {
+              reminderLine = `
+                <p>
+                  There is only one correct order of applying multiple operations.
+                  Try to infer this order from examples.
+                </p>
+                <hr>
+              `;
+            }
             return `
               <div id="practice-container">
+                ${reminderLine}
                 <p><b>Reference of Previous Examples</b></p>
                 ${priorHTML}
                 <hr>
@@ -435,30 +461,26 @@ function createPageTimeline(
           on_load: function(){
             const { inputWords, outputEmojis } = computeInputOutput(ex.inputArray, EXPERIMENT_PARAMS);
             setupDragAndDropPractice(outputEmojis); 
+            // Store the time (in ms) when this practice trial started
+            window.trialStartTime = performance.now();
           },
           on_finish: function(data){
-            data.trial_type = 'practice';
+            const { inputWords, outputEmojis } = computeInputOutput(ex.inputArray, EXPERIMENT_PARAMS);
+            // Store data ("isCorrect", "skipExample" are set by the DnD code)
+            data.trial_type   = 'practice';
+            data.episode      = episode;
+            data.page         = pageNumber;
+            data.inputSymbols = ex.inputArray;       // numerical IDs
+            data.inputWords   = inputWords;          // e.g. nonsense words
+            data.solutionEmojis = outputEmojis;        // solution emoji file names
           }
         }
       ],
       loop_function: function(data){
-        const { inputWords, outputEmojis } = computeInputOutput(ex.inputArray, EXPERIMENT_PARAMS);
         const last = data.values()[0];
-        // Store data
-        data.rt = data.rt;  // time is automatically captured by jspsych
-        data.episode = episode;
-        data.page = pageNumber;
-        data.trial_type = 'practice';
-        data.inputSymbols = ex.inputArray;
-        console.log(inputWords);
-        data.inputWords = inputWords;
-        data.outputEmojis = outputEmojis;
-        data.participant_response = data.participant_response || [];
-        data.attempts = last.attempts;
-        data.correct = last.isCorrect; 
-        data.skipExample = last.skipExample;
         // If skip or correct => break
         if(last.skipExample || last.isCorrect){
+            const { inputWords, outputEmojis } = computeInputOutput(ex.inputArray, EXPERIMENT_PARAMS);
             allExamples.push({
               index: exampleCounter++,
               type: 'practice',
@@ -493,7 +515,7 @@ function createPageTimeline(
 
 
 
-function randomizeCombinationExample(IDs, template, EXPERIMENT_PARAMS, episode){
+function randomizeCombArguments(IDs, template, EXPERIMENT_PARAMS, episode){
   // IDs = array of input token IDs we want to use, e.g. [1,2], or [1,2,3].
   // template = array of symbols, e.g. ["arg1","X","Y","arg2"].
   // We'll shuffle the mapping from "arg1","arg2","arg3" => IDs.

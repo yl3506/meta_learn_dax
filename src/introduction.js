@@ -106,6 +106,7 @@ function introductionProcedure() {
       if (lastTrialData.correct) {
             // Increment progress bar
             EXPERIMENT_PARAMS.currentSectionIndex ++;
+            console.log(`progress bar ${EXPERIMENT_PARAMS.currentSectionIndex} / ${EXPERIMENT_PARAMS.totalSections}`);
             const fraction = EXPERIMENT_PARAMS.currentSectionIndex / EXPERIMENT_PARAMS.totalSections;
             jsPsych.progressBar.progress = fraction;
           return false; // end of loop
@@ -116,6 +117,5 @@ function introductionProcedure() {
   };
 
   // Finally, we return an array that includes these multiple pages 
-  // plus the DnD practice 
   return [page1, page2, page3, page4, interfacePractice];
 }

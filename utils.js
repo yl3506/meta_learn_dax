@@ -180,11 +180,14 @@ function setupDragAndDropPractice(correctOutput) {
 
   // 5) Confirm button => check correctness, skip after 3 attempts
   document.getElementById('confirm-button').addEventListener('click', function() {
+    // The moment participant clicks Confirm:
+    let rt = performance.now() - window.trialStartTime;
+
     const sortedItems = dropArea.querySelectorAll('img');
-    // if (sortedItems.length === 0) {
-    //   alert('Please place at least one emoji in the drop area.');
-    //   return;
-    // }
+    if (sortedItems.length === 0) {
+      alert('Please drag at least one emoji into the drop area.');
+      return;
+    }
 
     const participantResponse = [];
     sortedItems.forEach(img => {
@@ -223,7 +226,6 @@ function setupDragAndDropPractice(correctOutput) {
     // Show feedback
     const container = document.getElementById('practice-container');
     const fbDiv = document.createElement('div');
-    console.log(`incorrect attempt ${EXPERIMENT_PARAMS.practiceAttempts}`);
     fbDiv.id = 'feedback-message';
     fbDiv.innerHTML = feedback_html;
     container.appendChild(fbDiv);
@@ -245,7 +247,8 @@ function setupDragAndDropPractice(correctOutput) {
         participant_response: participantResponse,
         attempts: EXPERIMENT_PARAMS.practiceAttempts,
         isCorrect: isCorrect,
-        skipExample: skipExample
+        skipExample: skipExample,
+        rt: rt,
       });
     });
   });
@@ -322,11 +325,14 @@ function setupDragAndDropTest(correctOutput) {
     });
 
     document.getElementById('confirm-button').addEventListener('click', function() {
+        // The moment participant clicks Confirm:
+        let rt = performance.now() - window.trialStartTime;
+
         const sortedItems = dropArea.querySelectorAll('img');
-        // if (sortedItems.length === 0) {
-        //     alert('Please drag at least one emoji into the drop area.');
-        //     return;
-        // }
+        if (sortedItems.length === 0) {
+            alert('Please drag at least one emoji into the drop area.');
+            return;
+        }
         const participantResponse = [];
         sortedItems.forEach(img => {
             participantResponse.push(img.dataset.color);
@@ -344,6 +350,10 @@ function setupDragAndDropTest(correctOutput) {
         container.appendChild(feedbackDiv);
 
         document.getElementById('confirm-button').style.display = 'none';
+        const noteEl = document.getElementById('no-feedback-note');
+        if(noteEl){
+          noteEl.style.display = 'none';  // hide note when click confirm
+        } 
         const nextButton = document.createElement('button');
         nextButton.id = 'next-button';
         nextButton.textContent = 'Next';
@@ -353,7 +363,8 @@ function setupDragAndDropTest(correctOutput) {
         nextButton.addEventListener('click', function() {
             jsPsych.finishTrial({
                 participant_response: participantResponse,
-                correct: isCorrect
+                correct: isCorrect,
+                rt: rt,
             });
         });
     });

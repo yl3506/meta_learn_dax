@@ -4,7 +4,7 @@ const jsPsych = initJsPsych({
   show_progress_bar: true,           
   auto_update_progress_bar: false,    // we'll manually update as we go
   on_finish: function() {
-    jsPsych.data.displayData(); // for debugging
+    // jsPsych.data.displayData(); // for debugging
   }
 });
 
@@ -77,7 +77,7 @@ function createRandomMappings(){
   return obj;
 }
 
-EXPERIMENT_PARAMS.totalSections = 20;
+EXPERIMENT_PARAMS.totalSections = 21;
 EXPERIMENT_PARAMS.currentSectionIndex = 0;
 EXPERIMENT_PARAMS.maxPracticeAttempts = 3;
 EXPERIMENT_PARAMS.practiceAttempts = 0;
@@ -86,16 +86,11 @@ EXPERIMENT_PARAMS.practiceAttempts = 0;
 var timeline = [];
 
 timeline.push(...consentProcedure());
-
 timeline.push(...introductionProcedure());
-
 timeline.push(...comprehensionCheckProcedure());
 
-
 timeline.push(...getEpisode1Timeline(EXPERIMENT_PARAMS));
-
 timeline.push(...getEpisode2Timeline(EXPERIMENT_PARAMS));
-
 timeline.push(...getEpisode3Timeline(EXPERIMENT_PARAMS));
 
 

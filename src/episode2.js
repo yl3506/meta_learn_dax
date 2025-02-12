@@ -234,7 +234,7 @@ function getEpisode2Timeline(EXPERIMENT_PARAMS){
   // We'll build final arrays
   let page5Demos = [];
   for(const ex of page5DemosTemplate){
-    const finalArray = randomizeCombinationExample(ex.IDs, ex.template, EXPERIMENT_PARAMS, 2);
+    const finalArray = randomizeCombArguments(ex.IDs, ex.template, EXPERIMENT_PARAMS, 2);
     page5Demos.push({
       inputArray: finalArray,
       type: 'demo'
@@ -243,7 +243,7 @@ function getEpisode2Timeline(EXPERIMENT_PARAMS){
 
   let page5Practice = [];
   for(const ex of page5PracticeTemplate){
-    const finalArray = randomizeCombinationExample(ex.IDs, ex.template, EXPERIMENT_PARAMS, 2);
+    const finalArray = randomizeCombArguments(ex.IDs, ex.template, EXPERIMENT_PARAMS, 2);
     page5Practice.push({
       inputArray: finalArray,
       type: 'practice'

@@ -20,7 +20,13 @@ function surveyProcedure() {
                columns: 80,
                required: false,
            }
-       ]
+       ],
+       on_finish: function(data){
+        jsPsych.data.addProperties({
+          strategy: data.response.strategy || '',
+          comment: data.response.comment || ''
+        });
+      },
    });
 
 
@@ -39,8 +45,20 @@ function surveyProcedure() {
             if (prolificId && prolificId.trim() !== '') {
                 EXPERIMENT_PARAMS.participant_id = prolificId.trim();
             }
+            // Temporarily save data
+            let correct = EXPERIMENT_PARAMS.testCorrectCount || 0;
+            let total   = EXPERIMENT_PARAMS.testTotalTrials || 0;
+            let pct     = (total>0)? Math.round((correct/total)*100):0;
+            jsPsych.data.addProperties({
+                e3_correctCount: correct,
+                e3_totalTestTrials: total,
+                e3_scorePercent: pct
+            });
+            saveDataToServer();
+            console.log(`saving data temporarily... e3_correctCount=${correct}, e3_totalTestTrials=${total}, e3_scorePercent=${pct}`);
             // Increment progress bar
             EXPERIMENT_PARAMS.currentSectionIndex ++;
+            console.log(`progress bar ${EXPERIMENT_PARAMS.currentSectionIndex} / ${EXPERIMENT_PARAMS.totalSections}`);
             const fraction = EXPERIMENT_PARAMS.currentSectionIndex / EXPERIMENT_PARAMS.totalSections;
             jsPsych.progressBar.progress = fraction;
         }
@@ -60,7 +78,13 @@ function surveyProcedure() {
                 name: 'age',
                 required: false
             }
-        ]
+        ],
+        on_finish: function(data){
+            jsPsych.data.addProperties({
+              gender: data.response.gender || '',
+              age: data.response.age || ''
+            });
+          },
     });
 
     // Completion message
@@ -86,14 +110,16 @@ function surveyProcedure() {
         },
         choices: ['Finish Study'],
         on_finish: function() {
-            // For testing, save data locally
-            saveDataLocally();
+            // // For testing, save data locally
+            // saveDataLocally();
+
             // For deployment, save data to server
-            // saveDataToServer();
+            saveDataToServer();
 
             // Redirect to completion URL
             setTimeout(function() {
-                window.location.href = 'https://connect-researcher-help.cloudresearch.com/hc/en-us/articles/5046202939796-Project-Completion';
+                // window.location.href = 'https://connect-researcher-help.cloudresearch.com/hc/en-us/articles/5046202939796-Project-Completion';
+                window.location.href = 'https://connect.cloudresearch.com/participant/project/8F8EFE87A6/complete';
             }, 3000); // wait 3 seconds for data to save
         }
     });
