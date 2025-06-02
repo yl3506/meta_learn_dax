@@ -1,9 +1,4 @@
 TODO
-double check transformer/baseline performance
-
-disable empty submit 
-redirection link
-
 base time 40 min (45-60min), first 5-10 pilot, full data 20-40 people, 
 16 base, 0.5 bonus each on pilot, 
 
@@ -13,6 +8,9 @@ randomize demo examples (especially combo page)
 hide button note after click confirm in test
 add note during the comb demo/practice that order is important
 resolve data storage
+double check transformer/baseline performance
+disable empty submit 
+redirection link
 
 
 Upload
@@ -217,3 +215,80 @@ Episode 3 (Grammar 3) - Testing
 		Test (15, 17, 18): arg1 X Z arg2 Y arg3 -> (arg1 X) Z (arg2 Y arg3) -> arg2 arg3 arg2 arg1 arg1 arg1
 		Test (16, 17, 18): arg1 Z arg2 Y arg3 X -> arg1 Z (arg2 Y (arg3 X)) -> arg2 arg3 arg3 arg3 arg2 arg1
 
+
+
+
+
+Universe
+Word: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14]
+Emoji: [a, b, c, d, e, f, g, h]
+Func: [F1, F2, F3, F4, F5, ..., F200?]
+
+Holdout
+[1, 2, 3, 4, 5, 6, 7,
+a, b, c, d,
+F1, F2, F3, F4]
+
+Non-Holdout
+[8, 9, 10, 11, 12, 13, 14,
+e, f, g, h,
+F5, F6, ..., F200]
+
+Test Episode Grammar
+choose all words from holdout: 1,2,3,4,5,6,7
+choose all emojis from holdout: a,b,c,d
+choose 3 func from 4 holdout: F1, F2, F3, F4
+return random mapping: {word -> emoji/func}
+
+Train Episode Grammar
+try sample Bernoulli(p=0.25):
+	if success:
+		choose 1 func from 4 holdout
+	elif sample Bernoulli(p=???) success:
+		choose 1 word/emoji from holdout
+	else:
+		fail
+if fail:
+	choose all words from non-holdout
+	choose all emojis from non-holdout
+	choose 3 functions from non-holdout
+else (success):
+	if isinstance(sample)==word:
+		choose 6 words from 7 non-holdout
+		choose all emojis from non-holdout
+		choose 3 func from non-holdout
+	elif isinstance(sample)==emoji:
+		choose all words from non-holdout
+		choose 3 emojis from 4 non-holdout
+		choose 3 func from non-holdout
+	elif isinstance(sample)==func:
+		choose all words from non-holdout
+		choose all emojis from non-holdout
+		choose 2 func from non-holdout
+return random mapping: {word -> emoji/func}
+
+
+
+
+1. I guarantee that the support contains trivial “input symbol → output symbol” examples for half of the output symbols in the grammar. This makes most episodes compositionally solvable.
+2. I enforce a compositional holdout within each episode: The queries are constructed from items that are not seen together in the same support example. This makes the task harder (but still fair).
+But I do guarantee that 25% of training episodes include a held-out concatenation function. So in the simulation I ran, where I held out 4 concatenation functions, each held-out function is expected to appear in 6,250 training episodes.
+
+In the Lake and Baroni simulations (and therefore ours too) each episode contains several of these trivial queries. Very few episodes contain queries that use all three operations. Most use 2 operations.
+
+I trained models on datasets with 30 and 35 output symbols, and found steadily decreasing accuracy for both i.i.d. and compositional test sets, as predicted. But there’s a lot of variance when the test set is only 200 samples, so I’m currently regenerating the datasets with test sets of 5000 samples and will re-train the models. My plan is to divide-and-conquer over the number of output symbols to identify the value where the model fails to converge. I should have some results in a week or so.
+
+At 25 symbols, this change pushes query-level compositional generalization accuracy down to below 20% on non-trivial queries that have more than one input symbol.
+
+I implemented a new compositional holdout strategy where, at 25 input and output symbols, query-level compositional test accuracy for nontrivial queries is 0%, and overall accuracy is 6%. This means that the model can only answer compositional test queries limited to a single item, and most of the time it can’t even do that. IID test accuracy is 86%, comparable to training accuracy.
+
+I have a thought about the human subjects study. The important feature of the simulation we need to match is just the symbol assignments used in training are completely different than the ones used in testing. This means we don’t need to fully reproduce the method for generating grammars and episodes. We can just generate a few episodes that we know fit our criteria, and then randomize all of the symbols. I hope this takes some stress out of the process, and maybe makes some of your questions less urgent.
+
+I successfully repeated the simulation study with a universe of 14 input symbols (nonsense words) and 8 output symbols (colors/emojis). This is the smallest universe where it is possible to generate both “all left-in” and “all held-out” grammars, given that each grammar contains 7 input symbols and 4 output symbols.
+The multiway holdout used 7 input symbols, 4 output symbols, and 4 functions. The test set size was 2000 episodes. The only way the holdout size could get smaller is by reducing the number of held-out functions from 4 to 3, but this might require reducing the size of the test set.
+Query-level training and IID generalization accuracy were at ~89%, and compositional generalization accuracy was at ~4% overall and ~0.1% for non-trivial queries.
+
+
+The machine experiment includes hundreds of functions, but the holdout only contained 4. I don't know what they were off the top of my head, but I can check later. I think it's fine if we just use the 3 functions we've already been using with human subjects, because each episode in the machine experiment only uses 3 functions.
+
+But there is one wrinkle: I think humans might be confused if the same symbols have different meanings in different episodes, and the Yichen’s proposal sidesteps this possibility by changing all of the symbols out each episode. I don’t think is a problem for our argument, but we might want to mention it and just say “that’s interesting but it’s not what we set out to study”.

@@ -54,6 +54,7 @@ function surveyProcedure() {
                 e3_totalTestTrials: total,
                 e3_scorePercent: pct
             });
+            // Save data for backup
             saveDataToServer();
             console.log(`saving data temporarily... e3_correctCount=${correct}, e3_totalTestTrials=${total}, e3_scorePercent=${pct}`);
             // Increment progress bar
@@ -119,7 +120,8 @@ function surveyProcedure() {
             // Redirect to completion URL
             setTimeout(function() {
                 // window.location.href = 'https://connect-researcher-help.cloudresearch.com/hc/en-us/articles/5046202939796-Project-Completion';
-                window.location.href = 'https://connect.cloudresearch.com/participant/project/8F8EFE87A6/complete';
+                // window.location.href = 'https://connect.cloudresearch.com/participant/project/8F8EFE87A6/complete'; // pilot completion code
+                window.location.href = 'https://connect.cloudresearch.com/participant/project/B71AE3610C/complete'; // formal completion code
             }, 3000); // wait 3 seconds for data to save
         }
     });
